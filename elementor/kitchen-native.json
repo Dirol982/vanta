@@ -1,0 +1,341 @@
+[
+ {
+  "id": "b7fa482",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+   "scroll_y": -80
+  },
+  "elements": [
+   {
+    "id": "1e93c4e",
+    "elType": "widget",
+    "settings": {
+     "heading": "Kitchen Renovation in NYC",
+     "reviews_label": "EXCELLENT",
+     "review_count": "15+",
+     "review_source": "GOOGLE REVIEWS",
+     "primary_cta_text": "Get a Free Estimate",
+     "secondary_cta_text": "Compare the Options",
+     "scroll_y": -80,
+     "background_image": {
+      "url": "https://vantasurfaces.com/wp-content/uploads/2026/08/photo_2026-08-22_18-46-36.jpg",
+      "id": 30579,
+      "size": "",
+      "alt": "Blue kitchen island refinished in interior film, Bay Ridge, Brooklyn",
+      "source": "library"
+     },
+     "reviews_link": {
+      "url": "#",
+      "is_external": "",
+      "nofollow": "",
+      "custom_attributes": ""
+     },
+     "primary_cta_link": {
+      "url": "#vanta-estimate-form",
+      "is_external": "",
+      "nofollow": "",
+      "custom_attributes": ""
+     },
+     "secondary_cta_link": {
+      "url": "#kitchen-options",
+      "is_external": "",
+      "nofollow": "",
+      "custom_attributes": ""
+     },
+     "eyebrow": "REFRESH · REFACE · REPLACE",
+     "description": "Refresh, reface or fully replace your kitchen. Licensed and insured, co-op and condo ready."
+    },
+    "elements": [],
+    "widgetType": "vanta_service_hero"
+   }
+  ]
+ },
+ {
+  "id": "6d2b95a",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+   "scroll_y": -80
+  },
+  "elements": [
+   {
+    "id": "a48dee1",
+    "elType": "widget",
+    "settings": {
+     "eyebrow": "THREE WAYS TO UPDATE YOUR KITCHEN",
+     "heading": "Most kitchens don't need a tear-out",
+     "intro_text": "Pick the option closest to your plan. Your written estimate confirms the scope and dates for your kitchen and building.",
+     "cards": [
+      {
+       "title": "Refresh",
+       "is_highlighted": "yes",
+       "description": "New finish on existing cabinet doors, boxes and island in architectural film. Our Bay Ridge kitchen took 3 days on site with 0 days out of use.",
+       "icon": {
+        "value": "fas fa-paint-roller",
+        "library": "fa-solid"
+       }
+      },
+      {
+       "title": "Reface",
+       "description": "New doors, drawer fronts and hardware on your existing boxes, with optional countertop, backsplash and lighting. Layout and plumbing stay.",
+       "icon": {
+        "value": "fas fa-door-open",
+        "library": "fa-solid"
+       }
+      },
+      {
+       "title": "Replace",
+       "description": "Full remodel: layout, cabinets, countertops, plumbing, electrical, flooring and lighting, with board paperwork and permits handled by us.",
+       "icon": {
+        "value": "fas fa-hammer",
+        "library": "fa-solid"
+       }
+      }
+     ],
+     "strip_text": "Not sure which one fits? We walk the kitchen with you and recommend the option that fits your budget.",
+     "cta_text": "GET A FREE ESTIMATE",
+     "scroll_y": -80,
+     "center_heading": "yes",
+     "heading_typography_typography": "custom",
+     "_element_id": "kitchen-options"
+    },
+    "elements": [],
+    "widgetType": "vanta_service_inclusions"
+   }
+  ]
+ },
+ {
+  "id": "4defcad",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+   "scroll_y": -80
+  },
+  "elements": [
+   {
+    "id": "00a5860",
+    "elType": "widget",
+    "settings": {
+     "eyebrow": "KITCHEN RENOVATION IN NYC",
+     "heading": "Every detail handled.\nOne team from\nstart to finish.",
+     "description": "We measure and agree the scope, prepare the co-op or condo paperwork, COI and elevator bookings, order materials before demolition and keep one project manager on your job until handover.",
+     "cta_text": "SEE HOW WE WORK",
+     "stages": [
+      {
+       "title": "Planning + layout",
+       "icon": {
+        "value": "far fa-edit",
+        "library": "fa-regular"
+       },
+       "_id": "48dfb45"
+      },
+      {
+       "title": "Permits + coordination",
+       "icon": {
+        "value": "far fa-file-alt",
+        "library": "fa-regular"
+       },
+       "_id": "af562ec"
+      },
+      {
+       "title": "Cabinetry + Countertops",
+       "icon": {
+        "value": "fas fa-tint",
+        "library": "fa-solid"
+       },
+       "_id": "c3b6903"
+      },
+      {
+       "title": "Fixtures + Finishing",
+       "_id": "513027d"
+      }
+     ],
+     "scroll_y": -80,
+     "eyebrow_typography_typography": "custom",
+     "eyebrow_typography_font_size": {
+      "unit": "px",
+      "size": 17,
+      "sizes": []
+     }
+    },
+    "elements": [],
+    "widgetType": "vanta_service_details"
+   }
+  ]
+ },
+ {
+  "id": "4310e14",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+   "scroll_y": -80
+  },
+  "elements": [
+   {
+    "id": "54231db",
+    "elType": "widget",
+    "settings": {
+     "heading": "What our clients have to say",
+     "reviews_shortcode": "[reviews_rating theme=\"columns five fonts\" limit=5 excerpt=180 attribution=false]",
+     "scroll_y": -80,
+     "heading_typography_typography": "custom",
+     "heading_typography_font_weight": "700",
+     "heading_typography_font_size": {
+      "unit": "px",
+      "size": 41,
+      "sizes": []
+     }
+    },
+    "elements": [],
+    "widgetType": "vanta_google_reviews_shortcode"
+   },
+   {
+    "id": "c33e479",
+    "elType": "widget",
+    "settings": {
+     "eyebrow": "",
+     "heading": "Your Design Vision, Build With Precision\n",
+     "project_location": "",
+     "project_duration": "",
+     "project_type": "",
+     "project_link_text": "VIEW PROJECT",
+     "before_label": "BEFORE",
+     "rendering_label": "3D RENDERING",
+     "after_label": "AFTER",
+     "summary_text": "One plan. One team. Delivered as designed.",
+     "status_items": [
+      {
+       "status_text": "Design matched",
+       "_id": "c8cc1a5"
+      },
+      {
+       "status_text": "Completed on schedule",
+       "_id": "a418684"
+      }
+     ],
+     "scroll_y": -80,
+     "before_image": {
+      "url": "https://vantasurfaces.com/wp-content/uploads/2026/10/Kitchen.webp",
+      "id": 31645,
+      "size": "",
+      "alt": "Kitchen before remodeling NYC",
+      "source": "library"
+     },
+     "rendering_image": {
+      "url": "https://vantasurfaces.com/wp-content/uploads/2026/10/IMG_2624.webp",
+      "id": 31647,
+      "size": "",
+      "alt": "Kitchen 3D rendering NYC",
+      "source": "library"
+     },
+     "after_image": {
+      "url": "https://vantasurfaces.com/wp-content/uploads/2026/10/IMG_2607.webp",
+      "id": 31646,
+      "size": "",
+      "alt": "Kitchen remodeling after NYC",
+      "source": "library"
+     },
+     "cta_text": "Get a free estimate",
+     "show_project_link": "",
+     "header_alignment": "center",
+     "before_alt": "Kitchen before remodeling NYC",
+     "rendering_alt": "Kitchen 3D rendering NYC",
+     "after_alt": "Kitchen remodeling after NYC",
+     "heading_typography_typography": "custom",
+     "heading_typography_font_size": {
+      "unit": "px",
+      "size": 41,
+      "sizes": []
+     }
+    },
+    "elements": [],
+    "widgetType": "vanta_before_rendering_after"
+   }
+  ]
+ },
+ {
+  "id": "01d1944",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+   "scroll_y": -80
+  },
+  "elements": [
+   {
+    "id": "c91d6c6",
+    "elType": "widget",
+    "settings": {
+     "heading": "Tell us what you need done",
+     "description": "Fill in the form and our team will contact you shortly\n\n",
+     "scroll_y": -80
+    },
+    "elements": [],
+    "widgetType": "vanta_estimate_form"
+   }
+  ]
+ },
+ {
+  "id": "ae9582b",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+   "scroll_y": -80
+  },
+  "elements": [
+   {
+    "id": "0fbaa4a",
+    "elType": "widget",
+    "settings": {
+     "eyebrow": "FAQ",
+     "heading": "Kitchen renovation questions",
+     "description": "Answers to what owners usually ask before requesting an estimate.",
+     "items": [
+      {
+       "question": "Can I remodel my kitchen without changing the existing layout?",
+       "answer": "<p><span style=\"font-weight: 400;\">Yes. Keeping your kitchen's existing layout can reduce renovation costs and construction time. Vanta Surfaces can replace kitchen cabinets, countertops, backsplashes, flooring, and lighting while maintaining the current plumbing and appliance locations. This is a practical option for NYC apartment owners who want a modern kitchen without a complete redesign.</span></p>",
+       "_id": "4dcedf2"
+      },
+      {
+       "question": "Do I need board approval in a co-op or condo?",
+       "answer": "<p>For most work beyond a refresh, yes. We prepare the alteration paperwork, certificates of insurance and work schedule your building asks for, and coordinate with the managing agent.</p>"
+      },
+      {
+       "question": "Can you remodel a small or galley kitchen in NYC?",
+       "answer": "<p><span style=\"font-weight: 400;\">Yes. Vanta Surfaces renovates small apartment kitchens, narrow galley kitchens, and other compact NYC kitchen layouts. Improvements may include space-efficient cabinetry, additional storage, updated countertops, better lighting, and durable flooring. We focus on making the available space more functional without unnecessary structural changes.</span></p>",
+       "_id": "b968cf2"
+      },
+      {
+       "question": "Can I change the layout of my kitchen during a renovation?",
+       "answer": "<p><span style=\"font-weight: 400;\">Kitchen layouts can often be modified, depending on the property's plumbing, electrical systems, structural conditions, and building restrictions. Changes may include relocating cabinets, repositioning appliances, or opening up the kitchen to an adjoining living area. Vanta Surfaces reviews the proposed changes and coordinates the necessary construction work and licensed trades.</span></p>",
+       "_id": "d3edfc4"
+      },
+      {
+       "question": "Does Vanta Surfaces provide kitchen renovations for rental properties?\n",
+       "answer": "<p><span style=\"font-weight: 400;\">Yes. We work with landlords, property managers, and real estate investors on kitchen renovations in NYC rental apartments. Projects may involve cabinet replacement, new countertops, backsplashes, flooring, painting, and fixture upgrades. The scope can be planned around the property's condition, renovation budget, and upcoming tenant occupancy.</span></p>",
+       "_id": "8482725"
+      },
+      {
+       "_id": "fe959cb",
+       "question": "How do I get a kitchen remodeling estimate in New York City?",
+       "answer": "<p><span style=\"font-weight: 400;\">To request an estimate from Vanta Surfaces, provide your property address, photos of the existing kitchen, approximate measurements, and a description of the improvements you want. If you have drawings, material preferences, or a target budget, include those as well. We review the project details and determine whether an on-site visit is needed before preparing a detailed renovation proposal.</span></p>"
+      }
+     ],
+     "scroll_y": -80
+    },
+    "elements": [],
+    "widgetType": "vanta_faq"
+   },
+   {
+    "elType": "widget",
+    "widgetType": "html",
+    "elements": [],
+    "settings": {
+     "html": "<script type=\"application/ld+json\">{\"@context\": \"https://schema.org\", \"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"Can I remodel my kitchen without changing the existing layout?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes. Keeping your kitchen's existing layout can reduce renovation costs and construction time. Vanta Surfaces can replace kitchen cabinets, countertops, backsplashes, flooring, and lighting while maintaining the current plumbing and appliance locations. This is a practical option for NYC apartment owners who want a modern kitchen without a complete redesign.\"}}, {\"@type\": \"Question\", \"name\": \"Do I need board approval in a co-op or condo?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"For most work beyond a refresh, yes. We prepare the alteration paperwork, certificates of insurance and work schedule your building asks for, and coordinate with the managing agent.\"}}, {\"@type\": \"Question\", \"name\": \"Can you remodel a small or galley kitchen in NYC?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes. Vanta Surfaces renovates small apartment kitchens, narrow galley kitchens, and other compact NYC kitchen layouts. Improvements may include space-efficient cabinetry, additional storage, updated countertops, better lighting, and durable flooring. We focus on making the available space more functional without unnecessary structural changes.\"}}, {\"@type\": \"Question\", \"name\": \"Can I change the layout of my kitchen during a renovation?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Kitchen layouts can often be modified, depending on the property's plumbing, electrical systems, structural conditions, and building restrictions. Changes may include relocating cabinets, repositioning appliances, or opening up the kitchen to an adjoining living area. Vanta Surfaces reviews the proposed changes and coordinates the necessary construction work and licensed trades.\"}}, {\"@type\": \"Question\", \"name\": \"Does Vanta Surfaces provide kitchen renovations for rental properties?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes. We work with landlords, property managers, and real estate investors on kitchen renovations in NYC rental apartments. Projects may involve cabinet replacement, new countertops, backsplashes, flooring, painting, and fixture upgrades. The scope can be planned around the property's condition, renovation budget, and upcoming tenant occupancy.\"}}, {\"@type\": \"Question\", \"name\": \"How do I get a kitchen remodeling estimate in New York City?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"To request an estimate from Vanta Surfaces, provide your property address, photos of the existing kitchen, approximate measurements, and a description of the improvements you want. If you have drawings, material preferences, or a target budget, include those as well. We review the project details and determine whether an on-site visit is needed before preparing a detailed renovation proposal.\"}}]}</script>",
+     "_title": "FAQ schema"
+    },
+    "id": "b15b219"
+   }
+  ]
+ }
+]
