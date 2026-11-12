@@ -1,0 +1,195 @@
+<!-- Vanta motion layer: parallax, reveals, cursor effects on top of the site's own vanta-* widgets.
+     Without JS or with "reduce motion" nothing changes: the page renders exactly like the source widgets. -->
+<style id="vm-css">
+.vm-progress{position:fixed;inset:0 0 auto 0;height:3px;z-index:9999;pointer-events:none}
+.vm-progress span{display:block;height:100%;background:#c3a15a;transform-origin:0 50%;transform:scaleX(var(--p,0))}
+
+/* hero: background moved to its own layer for parallax + settle */
+.vm .vanta-service-hero.vm-hero{background-image:none!important}
+.vm-hero__bg{position:absolute;z-index:-1;left:0;right:0;top:-12%;bottom:-12%;background-size:cover;background-repeat:no-repeat;will-change:transform;transform:translate3d(0,var(--vm-y,0px),0) scale(var(--vm-s,1.08))}
+.vm .vm-hero__bg{animation:vm-settle 2.2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes vm-settle{from{--vm-s:1.22;filter:brightness(.55)}}
+@property --vm-s{syntax:'<number>';inherits:false;initial-value:1.08}
+.vm .vanta-service-hero__title .vm-w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.vm .vanta-service-hero__title .vm-w>span{display:inline-block;transform:translateY(105%);animation:vm-rise 1s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(200ms + var(--i)*90ms)}
+.vm .vanta-service-hero__reviews,.vm .vanta-service-hero__actions,.vm .vanta-service-hero__eyebrow,.vm .vanta-service-hero__description{opacity:0;transform:translateY(22px);animation:vm-up .9s cubic-bezier(.2,.8,.2,1) forwards}
+.vm .vanta-service-hero__eyebrow{animation-delay:.1s}
+.vm .vanta-service-hero__description{animation-delay:.75s}
+.vm .vanta-service-hero__reviews{animation-delay:.85s}
+.vm .vanta-service-hero__actions{animation-delay:1s}
+@keyframes vm-rise{to{transform:none}}
+@keyframes vm-up{to{opacity:1;transform:none}}
+
+/* reveal on scroll, staggered inside each group */
+.vm [data-vm]{opacity:0;transform:translateY(34px);transition:opacity .8s ease,transform 1s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--d,0)*80ms)}
+.vm [data-vm].in{opacity:1;transform:none}
+.vm [data-vm="title"]{clip-path:inset(0 0 100% 0);transform:translateY(20px);transition:clip-path 1.1s cubic-bezier(.2,.8,.2,1),transform 1.1s cubic-bezier(.2,.8,.2,1),opacity .5s}
+.vm [data-vm="title"].in{clip-path:inset(-10% -5% -15% -5%)}
+.vm [data-vm="line"]{opacity:1;transform:scaleX(0);transform-origin:0 50%;transition:transform 1.4s cubic-bezier(.2,.8,.2,1)}
+.vm [data-vm="line"].in{transform:scaleX(1)}
+.vm [data-vm="zoom"]{transform:scale(.94)}
+
+/* cards: gold spotlight under the cursor + slight tilt */
+.vm-fx{position:relative;--mx:50%;--my:50%;transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .4s ease,border-color .3s ease}
+.vm-fx::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s ease;background:radial-gradient(380px circle at var(--mx) var(--my),rgba(195,161,90,.16),transparent 55%)}
+.vm-fx:hover::after{opacity:1}
+.vm-fx:hover{box-shadow:0 22px 44px -26px rgba(17,19,27,.35);border-color:#c3a15a!important}
+
+/* before / rendering / after: image drifts inside its frame */
+.vm .vanta-before-rendering-after__media{overflow:hidden}
+.vm .vanta-before-rendering-after__media img{transform:translate3d(0,var(--vm-iy,0px),0) scale(1.12);will-change:transform;transition:filter .5s ease}
+.vm .vanta-before-rendering-after__media:hover img{filter:saturate(1.15) contrast(1.04)}
+.vm .vanta-service-details__circle{transform:translate3d(0,var(--vm-cy,0px),0) rotate(var(--vm-cr,0deg));will-change:transform}
+
+/* magnetic buttons */
+.vm-mag{transition:transform .35s cubic-bezier(.2,.8,.2,1)!important}
+
+/* phone: sticky estimate bar */
+.vm-bar{display:none}
+@media (max-width:767px){
+  .vm-bar{display:grid;grid-template-columns:1fr auto;gap:8px;position:fixed;inset:auto 0 0;z-index:9998;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(17,19,27,.94);transform:translateY(110%);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+  .vm-bar.show{transform:none}
+  .vm-bar a{display:flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:3px;font:700 15px/1 Arial,Helvetica,sans-serif;text-decoration:none;letter-spacing:.02em}
+  .vm-bar a:first-child{background:#c3a15a;color:#11131b}
+  .vm-bar a:last-child{border:1px solid rgba(255,255,255,.3);color:#fff}
+}
+@media (prefers-reduced-motion:reduce){.vm-progress,.vm-bar{transition:none}}
+</style>
+<script data-no-optimize="1">
+(function () {
+  'use strict';
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var start = function () {
+    var html = document.documentElement;
+
+    /* phone sticky bar works in every mode */
+    var form = document.getElementById('vanta-estimate-form');
+    var hero = document.querySelector('.vanta-service-hero');
+    var bar = document.createElement('div');
+    bar.className = 'vm-bar';
+    bar.innerHTML = '<a href="#vanta-estimate-form">Get a Free Estimate</a><a href="tel:+16466641696">Call</a>';
+    document.body.appendChild(bar);
+    if ('IntersectionObserver' in window && hero) {
+      var heroIn = true, formIn = false;
+      var upd = function () { bar.classList.toggle('show', !heroIn && !formIn); };
+      new IntersectionObserver(function (e) { heroIn = e[0].isIntersecting; upd(); }).observe(hero);
+      if (form) new IntersectionObserver(function (e) { formIn = e[0].isIntersecting; upd(); }).observe(form);
+    }
+
+    if (reduce) return;
+    html.classList.add('vm');
+
+    /* progress bar */
+    var prog = document.createElement('div');
+    prog.className = 'vm-progress';
+    prog.setAttribute('aria-hidden', 'true');
+    prog.innerHTML = '<span></span>';
+    document.body.appendChild(prog);
+
+    /* hero: background layer + words */
+    var heroBg = null;
+    if (hero) {
+      var cs = getComputedStyle(hero);
+      if (cs.backgroundImage && cs.backgroundImage !== 'none') {
+        heroBg = document.createElement('div');
+        heroBg.className = 'vm-hero__bg';
+        heroBg.setAttribute('aria-hidden', 'true');
+        heroBg.style.backgroundImage = cs.backgroundImage;
+        heroBg.style.backgroundPosition = cs.backgroundPosition;
+        hero.insertBefore(heroBg, hero.firstChild);
+        hero.classList.add('vm-hero');
+      }
+      var t = hero.querySelector('.vanta-service-hero__title');
+      if (t && !t.querySelector('*')) {
+        t.setAttribute('aria-label', t.textContent.trim());
+        t.innerHTML = t.textContent.trim().split(/\s+/).map(function (w, i) {
+          return '<span class="vm-w" aria-hidden="true"><span style="--i:' + i + '">' + w + '</span></span>';
+        }).join(' ');
+      }
+    }
+
+    /* reveal targets */
+    var mark = function (sel, kind) {
+      var groups = new Map();
+      document.querySelectorAll(sel).forEach(function (el) {
+        if (el.closest('.vanta-service-hero') || el.hasAttribute('data-vm')) return;
+        var p = el.parentElement, n = groups.get(p) || 0;
+        groups.set(p, n + 1);
+        el.setAttribute('data-vm', kind || '');
+        el.style.setProperty('--d', Math.min(n, 8));
+      });
+    };
+    mark('[class*="vanta-"][class*="__title"]', 'title');
+    mark('.vanta-service-details__divider, .vanta-before-rendering-after__line', 'line');
+    mark('.vanta-service-inclusions__intro > *:not(.vanta-service-inclusions__intro-heading), .vanta-service-inclusions__intro-heading > *:not([class*="__title"]), .vanta-service-inclusions__card, .vanta-service-inclusions__cta-strip,' +
+         '.vanta-service-details__eyebrow, .vanta-service-details__description, .vanta-service-details__stage,' +
+         '.vanta-google-reviews__summary, .vanta-google-reviews .listing > li,' +
+         '.vanta-before-rendering-after__stage, .vanta-before-rendering-after__summary,' +
+         '.vanta-estimate-form__description, .vanta-estimate-form__form-shell,' +
+         '.vanta-faq__eyebrow, .vanta-faq__item');
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+    document.querySelectorAll('[data-vm]').forEach(function (el) { io.observe(el); });
+
+    /* scroll: progress, parallax, fallback reveal after anchor jumps */
+    var media = Array.prototype.slice.call(document.querySelectorAll('.vanta-before-rendering-after__media'));
+    var circle = document.querySelector('.vanta-service-details__circle');
+    var ticking = false;
+    var frame = function () {
+      ticking = false;
+      var vh = innerHeight, max = html.scrollHeight - vh;
+      prog.style.setProperty('--p', max > 0 ? (scrollY / max).toFixed(4) : 0);
+      if (heroBg) {
+        var hr = hero.getBoundingClientRect();
+        if (hr.bottom > 0) heroBg.style.setProperty('--vm-y', (-hr.top * 0.32).toFixed(1) + 'px');
+      }
+      media.forEach(function (m) {
+        var r = m.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        var p = (vh - r.top) / (vh + r.height);
+        m.style.setProperty('--vm-iy', ((p - 0.5) * -46).toFixed(1) + 'px');
+      });
+      if (circle) {
+        var cr = circle.getBoundingClientRect();
+        var cp = (vh - cr.top) / (vh + cr.height);
+        circle.style.setProperty('--vm-cy', ((cp - 0.5) * -90).toFixed(1) + 'px');
+        circle.style.setProperty('--vm-cr', (cp * 40).toFixed(1) + 'deg');
+      }
+      document.querySelectorAll('[data-vm]:not(.in)').forEach(function (el) {
+        if (el.getBoundingClientRect().top < vh * 0.92) { el.classList.add('in'); io.unobserve(el); }
+      });
+    };
+    addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }, { passive: true });
+    addEventListener('resize', frame);
+    frame();
+
+    /* cursor: spotlight + tilt on cards, magnetic buttons */
+    if (fine) {
+      document.querySelectorAll('.vanta-service-inclusions__card, .vanta-google-reviews .listing > li, .vanta-before-rendering-after__media, .vanta-service-details__stage').forEach(function (c) {
+        c.classList.add('vm-fx');
+        c.addEventListener('pointermove', function (e) {
+          var r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+          c.style.setProperty('--mx', (x * 100) + '%');
+          c.style.setProperty('--my', (y * 100) + '%');
+          if (!c.classList.contains('vanta-before-rendering-after__media')) {
+            c.style.transform = 'perspective(900px) rotateX(' + ((0.5 - y) * 5).toFixed(2) + 'deg) rotateY(' + ((x - 0.5) * 6).toFixed(2) + 'deg) translateY(-4px)';
+          }
+        });
+        c.addEventListener('pointerleave', function () { c.style.transform = ''; });
+      });
+      document.querySelectorAll('.vanta-service-hero__action, .vanta-service-inclusions__cta-strip a, .vanta-service-details a, .ff-btn-submit').forEach(function (b) {
+        b.classList.add('vm-mag');
+        b.addEventListener('pointermove', function (e) {
+          var r = b.getBoundingClientRect();
+          b.style.transform = 'translate(' + (((e.clientX - r.left) / r.width - 0.5) * 10).toFixed(1) + 'px,' + (((e.clientY - r.top) / r.height - 0.5) * 8).toFixed(1) + 'px)';
+        });
+        b.addEventListener('pointerleave', function () { b.style.transform = ''; });
+      });
+    }
+    setTimeout(function () { document.querySelectorAll('[data-vm]:not(.in)').forEach(function (el) { if (el.getBoundingClientRect().top < innerHeight) el.classList.add('in'); }); }, 2500);
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>

@@ -125,8 +125,10 @@ def main():
     schema = {'elType': 'widget', 'widgetType': 'html', 'elements': [],
               'settings': {'html': '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + '</script>', '_title': 'FAQ schema'}}
 
+    motion = {'elType': 'widget', 'widgetType': 'html', 'elements': [],
+              'settings': {'html': (ROOT / 'elementor' / 'motion-layer.html').read_text(), '_title': 'Motion layer (parallax & animations)'}}
     data = [container(hero), container(paths), container(details), container(reviews, compare),
-            container(form), container(faq, schema)]
+            container(form), container(faq, schema, motion)]
     for c in data:
         reid(c)
     out = ROOT / 'elementor' / 'kitchen-native.json'
