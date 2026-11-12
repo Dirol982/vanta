@@ -28,6 +28,28 @@
     });
   });
 
+  /* Drag the reviews row with a mouse (touch scrolls natively); a drag never counts as a click */
+  if (rvRow) {
+    var down = false, moved = false, sx = 0, sl = 0;
+    rvRow.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = true; moved = false; sx = e.clientX; sl = rvRow.scrollLeft;
+    });
+    addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - sx;
+      if (!moved && Math.abs(dx) > 6) { moved = true; rvRow.classList.add('is-drag'); }
+      if (moved) rvRow.scrollLeft = sl - dx;
+    });
+    addEventListener('pointerup', function () {
+      if (!down) return;
+      down = false;
+      if (moved) setTimeout(function () { rvRow.classList.remove('is-drag'); }, 0);
+    });
+    rvRow.addEventListener('click', function (e) { if (moved) { e.preventDefault(); moved = false; } }, true);
+    rvRow.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  }
+
   /* ── Form ── */
   var form = document.getElementById('estimate-form');
   if (form) {
