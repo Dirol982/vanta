@@ -18,6 +18,16 @@
     range.addEventListener('input', function () { ba.style.setProperty('--pos', range.value + '%'); });
   }
 
+  /* ── Reviews row arrows ── */
+  var rvRow = document.querySelector('.rv__row');
+  document.querySelectorAll('[data-rv]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var card = rvRow.querySelector('.rv');
+      var step = card ? card.getBoundingClientRect().width + 10 : 320;
+      rvRow.scrollBy({ left: step * +b.dataset.rv, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+
   /* ── Form ── */
   var form = document.getElementById('estimate-form');
   if (form) {
@@ -78,7 +88,7 @@
   document.body.prepend(bar);
 
   /* ── Reveal on scroll, staggered inside each group ── */
-  var targets = '.sec__head > *, .bento--three > .tile, .visit > *, .steps li, .work > *, .work__side > *, .faq > *, .book__head > *, .booking, .book__call, .note';
+  var targets = '.sec__head > *, .bento--three > .tile, .visit > *, .steps li, .work > *, .work__side > *, .rv, .faq > *, .book__head > *, .booking, .book__call, .note';
   var groups = new Map();
   document.querySelectorAll(targets).forEach(function (el) {
     var p = el.parentElement, n = groups.get(p) || 0;

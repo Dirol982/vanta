@@ -178,6 +178,25 @@ button { font: inherit; color: inherit; }
 .ba__range { position: absolute; inset: 0; z-index: 4; width: 100%; height: 100%; opacity: 0; margin: 0; cursor: ew-resize; }
 .ba:focus-within { outline: 2px solid var(--accent); outline-offset: 3px; }
 
+/* Reviews */
+.sec__head--row { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; max-width: none; flex-wrap: wrap; }
+.sec__head--row > div:first-child { display: grid; gap: 14px; }
+.rv__nav { display: flex; align-items: center; gap: 8px; }
+.rv__all { margin-right: 10px; color: var(--fg); font-weight: 600; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 5px; }
+.rv__all:hover { color: var(--accent); }
+.rv__btn { width: 44px; height: 44px; border-radius: var(--r); border: 1px solid var(--line-hi); background: transparent; cursor: pointer; font-size: 1.1rem; transition: border-color .2s, background .2s, color .2s; }
+.rv__btn:hover { border-color: var(--accent); color: var(--accent); }
+.rv__row { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px, calc((100% - 3 * var(--gap)) / 3.4)); gap: var(--gap); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; }
+.rv__row::-webkit-scrollbar { display: none; }
+.rv { scroll-snap-align: start; gap: 16px; min-height: 300px; }
+.rv__stars { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--accent); letter-spacing: .12em; font-size: 1.05rem; }
+.rv__stars .mono { letter-spacing: .08em; }
+.rv__text { margin: 0; font-size: 1.02rem; line-height: 1.55; flex: 1; }
+.rv__who { display: flex; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid var(--line); }
+.rv__who strong { display: block; font-weight: 600; }
+.rv__ava { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: var(--r); background: var(--accent); color: var(--on-accent); font: 700 .8rem/1 var(--f-display); }
+@media (max-width: 640px) { .rv__row { grid-auto-columns: 86%; } .rv__nav { flex-wrap: wrap; } .rv__btn { display: none; } }
+
 /* FAQ */
 .faq { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); align-items: start; }
 .faq details { padding: 0; }
