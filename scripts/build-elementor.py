@@ -112,7 +112,10 @@ def scope_css(css):
 
 EXTRA_CSS = """
 /* Elementor / theme resets inside the landing */
-.vk { font: 400 1rem/1.55 var(--f-text); background: var(--bg); color: var(--fg); overflow-x: clip; }
+.vk { font: 400 1rem/1.55 var(--f-text); background: var(--bg) !important; color: var(--fg); overflow-x: clip; }
+.vk .btn, .vk .tile__mid, .vk .booking__paths span { text-transform: none; }
+.vk .tile__mid { text-transform: uppercase; }
+.vk .btn { letter-spacing: normal; font-family: var(--f-text); }
 .vk .elementor-widget:not(:last-child) { margin-block-end: 0; }
 .vk .elementor-widget-container { margin: 0; padding: 0; }
 .vk h1, .vk h2, .vk h3 { color: inherit; }
