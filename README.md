@@ -4,9 +4,11 @@ Landing pages for [Vanta Surfaces](https://vantasurfaces.com), served with GitHu
 
 | Page | Folder |
 |---|---|
-| Kitchen renovation in NYC | `kitchen-renovation/` |
+| Kitchen renovation in NYC (dark) | `kitchen-renovation/` |
+| Kitchen renovation in NYC (light) | `kitchen-renovation/light/` |
 
-Each landing is static HTML, CSS and JS with no build step. Photos are the company's own project photos, resized to WebP.
+Each landing is static HTML, CSS and JS with no build step. The light page is generated from the dark one:
+after editing `kitchen-renovation/index.html`, run `python3 scripts/build-light.py`. Photos are the company's own project photos, resized to WebP.
 
 ## Lead form
 
