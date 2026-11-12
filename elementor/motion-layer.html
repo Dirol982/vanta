@@ -77,6 +77,21 @@
       if (form) new IntersectionObserver(function (e) { formIn = e[0].isIntersecting; upd(); }).observe(form);
     }
 
+    /* options strip: bold question + call-to-action button (works in every mode) */
+    var strip = document.querySelector('.vanta-service-inclusions__cta-strip');
+    if (strip && !strip.querySelector('.vk-btn')) {
+      var st = strip.querySelector('.vanta-service-inclusions__strip-text');
+      if (st && st.textContent.indexOf('?') > 0 && !st.querySelector('strong')) {
+        var i = st.textContent.indexOf('?') + 1, full = st.textContent;
+        st.textContent = '';
+        var q = document.createElement('strong'); q.textContent = full.slice(0, i);
+        st.appendChild(q); st.appendChild(document.createTextNode(full.slice(i).trim()));
+      }
+      var btn = document.createElement('a');
+      btn.className = 'vk-btn'; btn.href = '#vanta-estimate-form'; btn.textContent = 'Book a free walkthrough';
+      strip.appendChild(btn);
+    }
+
     if (reduce) return;
     html.classList.add('vm');
 
@@ -127,7 +142,7 @@
          '.vanta-google-reviews__summary, .vanta-google-reviews .listing > li,' +
          '.vanta-before-rendering-after__stage, .vanta-before-rendering-after__summary,' +
          '.vanta-estimate-form__description, .vanta-estimate-form__form-shell,' +
-         '.vanta-faq__eyebrow, .vanta-faq__item');
+         '.vanta-faq__eyebrow, .vanta-faq__item, .vk-next, .vk-steps li, .vk-faq-side > *');
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
@@ -179,7 +194,7 @@
         });
         c.addEventListener('pointerleave', function () { c.style.transform = ''; });
       });
-      document.querySelectorAll('.vanta-service-hero__action, .vanta-service-inclusions__cta-strip a, .vanta-service-details a, .ff-btn-submit').forEach(function (b) {
+      document.querySelectorAll('.vanta-service-hero__action, .vk-btn, .vanta-service-details a, .ff-btn-submit').forEach(function (b) {
         b.classList.add('vm-mag');
         b.addEventListener('pointermove', function (e) {
           var r = b.getBoundingClientRect();

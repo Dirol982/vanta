@@ -74,8 +74,8 @@ def main():
         'primary_cta_link': {'url': '#vanta-estimate-form', 'is_external': '', 'nofollow': '', 'custom_attributes': ''},
         'secondary_cta_text': 'Compare the Options',
         'secondary_cta_link': {'url': '#kitchen-options', 'is_external': '', 'nofollow': '', 'custom_attributes': ''},
-        'background_image': {'url': 'https://vantasurfaces.com/wp-content/uploads/2026/08/photo_2026-08-22_18-46-36.jpg',
-                             'id': 30579, 'size': '', 'alt': 'Blue kitchen island refinished in interior film, Bay Ridge, Brooklyn', 'source': 'library'},
+        'background_image': {'url': 'https://vantasurfaces.com/wp-content/uploads/2026/10/photo_2026-10-07_02-44-43.jpg',
+                             'id': 31663, 'size': '', 'alt': 'Renovated kitchen with wood and white cabinets and an island', 'source': 'library'},
     })
 
     # 2. Three paths, on the site's own "inclusions" card block
@@ -95,7 +95,7 @@ def main():
              'description': 'Full remodel: layout, cabinets, countertops, plumbing, electrical, flooring and lighting, with board paperwork and permits handled by us.',
              'icon': {'value': 'fas fa-hammer', 'library': 'fa-solid'}},
         ],
-        'strip_text': 'Not sure which one fits? We walk the kitchen with you and recommend the option that fits your budget.',
+        'strip_text': 'Not sure which option fits? We walk the kitchen with you, check what can stay and recommend the right option for your budget.',
         'cta_text': 'GET A FREE ESTIMATE',
     })
     paths['settings']['_element_id'] = 'kitchen-options'
@@ -127,22 +127,53 @@ def main():
 
     motion = {'elType': 'widget', 'widgetType': 'html', 'elements': [],
               'settings': {'html': (ROOT / 'elementor' / 'motion-layer.html').read_text(), '_title': 'Motion layer (parallax & animations)'}}
-    data = [container(hero), container(paths), container(details), container(reviews, compare),
-            container(form), container(faq, schema, motion)]
+    def htmlw(title, code):
+        return {'elType': 'widget', 'widgetType': 'html', 'elements': [], 'settings': {'html': code, '_title': title}}
+
+    def row(css, *widgets, bg=None):
+        c = container(*widgets)
+        c['settings'].update({'content_width': 'full', 'css_classes': css})
+        if bg:
+            c['settings'].update({'background_background': 'classic', 'background_color': bg})
+        return c
+
+    layout = htmlw('Landing layout styles (keep)', (ROOT / 'elementor' / 'landing-layout.html').read_text())
+    next_panel = htmlw('What happens next', '''<div class="vk-next">
+  <p class="vk-eyebrow">Free estimate</p>
+  <h2>What happens after you send the form</h2>
+  <ol class="vk-steps">
+    <li><span>01</span><div><strong>We call you back</strong><p>We review your request and call to schedule a walkthrough at a time that works for you.</p></div></li>
+    <li><span>02</span><div><strong>Walkthrough and measurements</strong><p>We measure the kitchen, check what your building requires and talk through the options.</p></div></li>
+    <li><span>03</span><div><strong>Written estimate</strong><p>You get an itemized scope and price in writing, free of charge.</p></div></li>
+  </ol>
+  <div class="vk-next__contact">
+    <span>Prefer to talk?</span>
+    <a href="tel:+16466641696">(646) 664-1696</a>
+    <span><span class="vk-next__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.9 on Google · Licensed &amp; insured · NYC DCWP 2137851</span>
+  </div>
+</div>''')
+    faq_side = htmlw('FAQ heading', '''<div class="vk-faq-side">
+  <p class="vk-eyebrow">FAQ</p>
+  <h2>Questions owners ask before they book</h2>
+  <p>Don't see yours? Call <a class="vk-link" href="tel:+16466641696">(646) 664-1696</a> or add it to your estimate request.</p>
+  <div><a class="vk-btn" href="#vanta-estimate-form">Get a free estimate</a></div>
+</div>''')
+    data = [container(layout, hero), container(paths), container(details), container(reviews, compare),
+            row('vk-split', next_panel, form, bg='#ffffff'), row('vk-faq', faq_side, faq, schema, motion, bg='#f7f5f1')]
     for c in data:
         reid(c)
     out = ROOT / 'elementor' / 'kitchen-native.json'
     out.write_text(json.dumps(data, ensure_ascii=False, indent=1))
 
     state = json.loads(STATE.read_text()) if STATE.exists() else {}
-    payload = {'title': 'Kitchen Renovation NYC — Landing (site design)', 'slug': 'kitchen-renovation-nyc-landing',
-               'status': 'draft', 'template': src['template'],
+    payload = {'title': 'Kitchen Renovation NYC — Landing (site design)', 'template': src['template'],
                'meta': {'_elementor_edit_mode': 'builder', '_elementor_template_type': 'wp-page',
                         '_elementor_data': json.dumps(data, ensure_ascii=False)}}
-    path = f"wp/v2/pages/{state['page-native']}" if 'page-native' in state else 'wp/v2/pages'
-    r = req(path + '?_fields=id,status,link', payload)
-    if r['status'] != 'draft':
-        raise SystemExit('expected draft, got ' + r['status'])
+    if 'page-native' in state:  # update content only: status and slug stay as they are on the site
+        r = req(f"wp/v2/pages/{state['page-native']}?_fields=id,status,link", payload)
+    else:
+        payload.update({'status': 'draft', 'slug': 'kitchen-renovation-nyc-landing'})
+        r = req('wp/v2/pages?_fields=id,status,link', payload)
     state['page-native'] = r['id']
     STATE.write_text(json.dumps(state, indent=1))
     # landing for paid traffic duplicates /kitchen-remodeling/: keep it out of search
@@ -150,7 +181,7 @@ def main():
         'rank_math_robots': ['noindex', 'follow'],
         'rank_math_title': 'Kitchen Renovation in NYC | Vanta Surfaces',
         'rank_math_description': 'Refresh, reface or fully replace your kitchen. Licensed and insured NYC contractor, co-op and condo ready. Free walkthrough and written estimate.'}})
-    print('draft', r['id'], r['link'], 'template', src['template'])
+    print(r['status'], r['id'], r['link'], 'template', src['template'])
 
 
 if __name__ == '__main__':
