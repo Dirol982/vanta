@@ -115,6 +115,10 @@ button { font: inherit; color: inherit; }
 .tile--cta .tile__mid { font-size: clamp(1.3rem, 2vw, 1.9rem); max-width: 12ch; }
 .tile__arrow { position: absolute; top: 18px; right: 20px; font: 700 1.6rem/1 var(--f-display); transition: transform .35s var(--ease); }
 .tile--cta:hover .tile__arrow { transform: translate(4px, -4px); }
+.tile--link { text-decoration: none; color: inherit; transition: border-color .2s; }
+.tile--link:hover { border-color: var(--accent); }
+.tile__more { display: inline-block; color: var(--fg); font-weight: 600; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+.tile--link:hover .tile__more { color: var(--accent); }
 
 /* Ticker */
 .ticker { overflow: hidden; border-block: 1px solid var(--line); background: var(--panel); padding: 22px 0; margin-top: calc(var(--gap) * 2); }
@@ -156,11 +160,12 @@ button { font: inherit; color: inherit; }
 .steps p { color: var(--muted); max-width: 52ch; }
 
 /* Work */
-.work { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); gap: var(--gap); align-items: start; }
-.work__side { display: grid; gap: var(--gap); align-content: start; }
+.work { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); gap: var(--gap); align-items: stretch; }
+.work__side { display: flex; flex-direction: column; gap: var(--gap); }
+.work__cta { flex: 1; min-height: 120px; }
 .proof { gap: 12px; }
 .proof__list { font-size: 1.05rem; line-height: 1.6; margin-bottom: 12px; }
-.ba { padding: 0; aspect-ratio: 4 / 5; max-height: 560px; user-select: none; background: #0c0e14; }
+.ba { padding: 0; min-height: 550px; align-self: stretch; user-select: none; background: #0c0e14; }
 .ba img, .ba__before { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .ba__before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
 .ba__before img { width: 100%; height: 100%; object-fit: cover; }
@@ -226,7 +231,7 @@ button { font: inherit; color: inherit; }
   .path { min-height: 0; }
   .path--img { min-height: 420px; }
   .visit, .work { grid-template-columns: 1fr; }
-  .ba { max-width: 520px; width: 100%; }
+  .ba { max-width: 520px; width: 100%; min-height: 0; aspect-ratio: 4 / 5; }
   .visit__photo { min-height: 0; width: 100%; aspect-ratio: 16 / 10; }
   .faq { grid-template-columns: 1fr; }
 }
