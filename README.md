@@ -20,3 +20,13 @@ define the endpoint before `app.js` loads:
 ```
 
 The form then POSTs JSON: `name, phone, email, zip, option, message, page`.
+
+## Elementor version on vantasurfaces.com
+
+`python3 scripts/build-elementor.py` turns `kitchen-renovation/` into Elementor data (`elementor/kitchen-{dark,light}.json`):
+one full-width container with class `vk` (`vk vk--light` for the light theme), a "Styles & script" HTML widget,
+one HTML widget per section, and the site's own `vanta_estimate_form` widget (Fluent Form #1) as the lead form.
+Styles are scoped to `.vk` so the theme cannot override them. Images use the WordPress media library.
+
+`python3 scripts/push-elementor-drafts.py` saves them to the site as **drafts** (pages with the Elementor Canvas
+template plus Elementor library templates). IDs are kept in `elementor/wp-ids.json`, so re-running updates the same drafts.
